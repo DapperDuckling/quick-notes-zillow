@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Zillow Note Taker",
+  "version": "1.0",
+  "description": "Save and view personal notes for Zillow property listings.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.zillow.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.zillow.com/*"],
+      "js": ["content.js"],
+      "css": ["style.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

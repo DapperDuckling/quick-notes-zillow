@@ -1,0 +1,114 @@
+/* --- Details Page Note Container --- */
+.znt-note-container {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f9f9fb;
+    border: 1px solid #d1d1d5;
+    border-radius: 8px;
+    font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    z-index: 999;
+    position: relative;
+}
+
+.znt-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #006aff; /* Zillow Blue */
+}
+
+.znt-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.znt-save-btn {
+    background-color: #006aff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.znt-save-btn:hover {
+    background-color: #0050c2;
+}
+
+.znt-status-msg {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #28a745;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.znt-status-msg.visible {
+    opacity: 1;
+}
+
+/* --- Search/Listing Page Indicators --- */
+.znt-card-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ffd700; /* Gold/Yellow */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-size: 14px;
+}
+
+/* Tooltip Logic */
+.znt-tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+    top: 120%; /* Below the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    font-size: 12px;
+    line-height: 1.4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.znt-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.znt-card-indicator:hover .znt-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
