@@ -7,8 +7,9 @@
     border-radius: 8px;
     font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    z-index: 999;
+    z-index: 99;
     position: relative;
+    clear: both; /* Ensure it sits below floated elements */
 }
 
 .znt-title {
@@ -57,28 +58,73 @@
     opacity: 1;
 }
 
-/* --- Search/Listing Page Indicators --- */
-.znt-card-indicator {
+/* --- Search/Listing Page Indicators & Snippets --- */
+
+/* Container injected into card */
+.znt-card-annotation {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: #ffd700; /* Gold/Yellow */
-    width: 24px;
-    height: 24px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    max-width: 90%;
+    pointer-events: auto; /* Ensure click pass-through works */
+}
+
+/* The Icon Circle */
+.znt-card-icon {
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 20;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     font-size: 14px;
+    transition: transform 0.1s;
+    background-color: #f0f0f0; /* Default grey */
+    color: #555;
+    border: 1px solid #ccc;
 }
 
-/* Tooltip Logic */
+/* Style for when a note exists */
+.znt-card-icon.has-note {
+    background-color: #ffd700; /* Gold */
+    color: #000;
+    border: 1px solid #e6c200;
+}
+
+.znt-card-icon:hover {
+    transform: scale(1.1);
+}
+
+/* The Text Snippet */
+.znt-snippet {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #333;
+    margin-left: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    display: none; /* Hidden by default if empty */
+    font-weight: 600;
+}
+
+.znt-snippet.visible {
+    display: block;
+}
+
+/* Tooltip on hover (for full note) */
 .znt-tooltip {
     visibility: hidden;
-    width: 200px;
+    width: 220px;
     background-color: #333;
     color: #fff;
     text-align: left;
@@ -86,29 +132,65 @@
     padding: 10px;
     position: absolute;
     z-index: 100;
-    top: 120%; /* Below the icon */
-    left: 50%;
-    transform: translateX(-50%);
+    top: 120%;
+    left: 0;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.2s;
     pointer-events: none;
     font-size: 12px;
     line-height: 1.4;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    white-space: normal;
 }
 
-.znt-tooltip::after {
-    content: "";
-    position: absolute;
-    bottom: 100%; /* At the top of the tooltip */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #333 transparent;
-}
-
-.znt-card-indicator:hover .znt-tooltip {
+.znt-card-annotation:hover .znt-tooltip {
     visibility: visible;
     opacity: 1;
+}
+
+/* --- MODAL (For editing on cards) --- */
+.znt-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.znt-modal-overlay.open {
+    display: flex;
+}
+
+.znt-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.znt-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.znt-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+.znt-modal-close:hover {
+    color: #333;
 }
